@@ -33,24 +33,21 @@ const AssistantMessage = ({ text }: { text: string }) => {
             return <h3 key={index} className={styles.resultTitle}>{line}</h3>;
           } else if (line.includes(':')) {
             const [key, value] = line.split(':');
+            const trimmedKey = key.trim().toLowerCase();
             return (
               <p key={index} className={styles.resultItem}>
                 <strong>{key.trim()}:</strong>{' '}
-                {key.trim().toLowerCase() === 'url' || key.trim().toLowerCase() === 'article links' || key.trim().toLowerCase() === 'tweet links' ? (
-                  value.split(',').map((link, i) => (
-                    <React.Fragment key={i}>
-                      {i > 0 && ', '}
-                      <a href={link.trim()} target="_blank" rel="noopener noreferrer" className={styles.resultLink}>{link.trim()}</a>
-                    </React.Fragment>
-                  ))
+                {trimmedKey === 'url' ? (
+                  <a href={value.trim()} target="_blank" rel="noopener noreferrer" className={styles.resultLink}>
+                    {value.trim()}
+                  </a>
                 ) : (
                   value.trim()
                 )}
               </p>
             );
-          } else {
-            return <p key={index} className={styles.resultText}>{line}</p>;
           }
+          return null;
         })}
       </div>
     );

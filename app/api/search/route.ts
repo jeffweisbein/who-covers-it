@@ -97,8 +97,7 @@ function formatSearchResponse(response: any): string {
 Result ${index + 1}:
 Title: ${result.title || 'No title'}
 URL: ${result.url || 'No URL'}
-Snippet: ${result.text || result.snippet || 'No snippet available'}
-${result.content ? `Content: ${result.content}` : ''}
+Summary: ${result.summary || 'No summary available'}
 
 `;
   });

@@ -57,10 +57,15 @@ const SharedQueryPage = ({ params }) => {
                 }
 
                 const exa = new Exa(exaApiKey);
-                const exaResponse = await exa.search(query);
+                const exaResponse = await exa.searchAndContents(query, {
+                  type: "neural",
+                  useAutoprompt: true,
+                  livecrawl: "always",
+                  summary: true
+                });
 
                 const exaContent = exaResponse.results.map(result =>
-                  `${result.title}\n${result.url}\n${result.text}`
+                  `${result.title}\n${result.url}\n${result.summary}`
                 ).join('\n\n');
 
                 return exaContent;
